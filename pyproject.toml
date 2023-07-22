@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "graphql-federation-example"
+version = "0.1.0"
+description = ""
+authors = ["Okba <okba2fb@gmail.com>"]
+readme = "README.md"
+packages = [{include = "graphql_federation_example"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+strawberry-graphql = {extras = ["debug-server"], version = "^0.195.3"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
