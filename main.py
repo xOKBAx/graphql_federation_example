@@ -68,5 +68,10 @@ query books {
 """
 # Or this to create a new book
 """
-
+mutation createBook {
+  addBook(title: "New Book", author: "me"){
+    title
+    author
+  }
+}
 """
