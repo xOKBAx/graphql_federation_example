@@ -1,4 +1,5 @@
 """Graphql Example"""
+# pylint: disable=pointless-string-statement
 import strawberry
 
 
