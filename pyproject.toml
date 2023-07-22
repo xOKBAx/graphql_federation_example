@@ -8,7 +8,9 @@ packages = [{include = "graphql_federation_example"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-strawberry-graphql = {extras = ["debug-server"], version = "^0.195.3"}
+strawberry-graphql = {extras = ["debug-server", "asgi"], version = "^0.195.3"}
+uvicorn = "^0.23.1"
+websockets = "^11.0.3"
 
 
 [build-system]

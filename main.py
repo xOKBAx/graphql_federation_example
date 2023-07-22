@@ -1,6 +1,9 @@
 """Graphql Example"""
 # pylint: disable=pointless-string-statement
+import asyncio
+from typing import AsyncGenerator
 import strawberry
+from strawberry.asgi import GraphQL
 
 
 # Every GraphQL server uses a schema to define the structure of the data that clients can query.
@@ -50,13 +53,23 @@ class Mutation: # pylint: disable=too-few-public-methods
         return book
 
 
+@strawberry.type
+class Subscription:
+    """Subscription Type"""
+    @strawberry.subscription
+    async def count(self, target: int) -> AsyncGenerator[int, None]:
+        """Counter"""
+        for i in range(target):
+            yield i
+            await asyncio.sleep(0.5)
+
+
 # We have defined our data and query,
 # now what we need to do is create a GraphQL schema and start the server.
 # Command: strawberry server main
 # http://localhost:8000/graphql
 
-schema = strawberry.Schema(query=Query, mutation=Mutation)
-
+schema = strawberry.Schema(query=Query, mutation=Mutation, subscription=Subscription)
 
 # Now we can run the next query to retrieve all books
 """
@@ -74,5 +87,20 @@ mutation createBook {
     title
     author
   }
+}
+"""
+
+
+# To be able to use subscriptions, we must install two more packages:
+# "uvicorn" and "websockets"
+app = GraphQL(schema)
+
+# Command: uvicorn main:app
+
+
+# Now we can subscribe with this query
+"""
+subscription {
+  count(target: 5)
 }
 """
